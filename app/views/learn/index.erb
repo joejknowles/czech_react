@@ -1,0 +1,12 @@
+<% if @sentence %>
+  <h3>Translate to Czech:</h3>
+  <p><%=@sentence.get_as_string%></p>
+  <%= form_tag("/check_answer", method: 'post') do %>
+    <%= label_tag(:answer, "Enter answer:", hidden: 'hidden') %>
+    <%= text_field_tag(:answer,'', placeholder: 'You know this!', autofocus: true, autocomplete: 'off') %>
+    <%= hidden_field_tag(:sentence_id, @sentence.id) %>
+    <%= submit_tag("Check") %>
+  <% end %>
+<% else %>
+  <p>There are no words.</p>
+<% end %>
