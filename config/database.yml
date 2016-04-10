@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: lang_sql_production
+  database: postgres://rwidteqqezmdhw:orXHjy4MVn9zwZfS-iUkrxOPVt@ec2-46-137-125-22.eu-west-1.compute.amazonaws.com:5432/dfhl5dqj5qtad7
   username: lang_sql
   password: <%= ENV['LANG_SQL_DATABASE_PASSWORD'] %>
