@@ -13,8 +13,7 @@ LearnHelper.create_question english_sentence: 'big', czech_sentence: 'velký'
 LearnHelper.create_question english_sentence: 'tall', czech_sentence: 'vysoký'
 LearnHelper.create_question english_sentence: 'poor', czech_sentence: 'chudý'
 LearnHelper.create_question english_sentence: 'rich', czech_sentence: 'bohatý'
-LearnHelper.create_question english_sentence: 'thin', czech_sentence: 'hubený'
-LearnHelper.create_question english_sentence: 'thin', czech_sentence: 'štihlý'
+LearnHelper.create_question english_sentence: 'thin', czech_sentence: ['hubený', 'štihlý']
 LearnHelper.create_question english_sentence: 'fat', czech_sentence: 'tlustý'
 LearnHelper.create_question english_sentence: 'healthy', czech_sentence: 'zdravý'
 LearnHelper.create_question english_sentence: 'sick', czech_sentence: 'nemocný'
@@ -32,9 +31,10 @@ LearnHelper.create_question english_sentence: 'clean', czech_sentence: 'čistý'
 LearnHelper.create_question english_sentence: 'dirty', czech_sentence: 'špinavý'
 LearnHelper.create_question english_sentence: 'cheap', czech_sentence: 'levný'
 LearnHelper.create_question english_sentence: 'expensive', czech_sentence: 'drahý'
-LearnHelper.create_question english_sentence: 'beautiful', czech_sentence: 'krasný'
-LearnHelper.create_question english_sentence: 'ugly', czech_sentence: 'ošklivý'
-LearnHelper.create_question english_sentence: 'ugly', czech_sentence: 'škaredý'
+LearnHelper.create_question english_sentence: 'beautiful', czech_sentence: 'krásný'
+
+LearnHelper.create_question english_sentence: 'ugly', czech_sentences: ['ošklivý', 'škaredý']
+
 LearnHelper.create_question english_sentence: 'happy', czech_sentence: 'veselý'
 LearnHelper.create_question english_sentence: 'sad', czech_sentence: 'smutný'
 

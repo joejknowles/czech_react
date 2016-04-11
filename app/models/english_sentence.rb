@@ -2,7 +2,7 @@ class EnglishSentence < ActiveRecord::Base
   has_many :english_sentence_components
   has_many :czech_translations
   def self.create_sentence sentence_data
-    sentence = create
+    sentence = new
     components = []
     sentence_data[:words].each_with_index do |word, word_index|
       components << EnglishSentenceComponent.create(
