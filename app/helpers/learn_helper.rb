@@ -1,6 +1,6 @@
 module LearnHelper
-  def self.get_sentence
-    sentence = EnglishSentence.order("RANDOM()").first
+  def self.get_lesson
+    Array(EnglishSentence.limit(100)).shuffle
   end
   def self.create_question question_data
     english = EnglishSentence.create_sentence(

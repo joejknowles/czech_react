@@ -1,11 +1,8 @@
 class AnswerCheckerController < ApplicationController
-
   def check
-    if AnswerCheckerHelper.check_answer params
-      flash[:notice] = 'Well done!'
-    else
-      flash[:notice] = 'Not quite!'
+    respond_to do |format|
+      result = AnswerCheckerHelper.check_answer params
+      format.json { render json: result.to_json }
     end
-    redirect_to '/learn'
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'test_helpers/learn_test_helper'
 
-feature 'practice' do
+feature 'practice', js: true do
   context 'no words have been added' do
     scenario "should tell you there aren't any words" do
       visit '/learn'
@@ -11,25 +11,45 @@ feature 'practice' do
   context 'words have been added' do
     before do
       LearnTestHelper.create_first_lesson
-      visit 'learn'
+      visit '/learn'
     end
     scenario 'should ask you to translate' do
       expect(page).to have_content 'Translate to Czech:'
       expect(page).to have_content 'I am'
     end
-    context 'when answered correctly' do
+    context 'when answered correctly', js: true do
       scenario 'should congratulate' do
         fill_in 'answer', with: 'jsem'
         click_button 'Check'
-        expect(page).to have_content 'Well done!'
+        expect(page).to have_content 'nice!'
       end
     end
-    context 'when answered incorrectly' do
+    context 'when answered incorrectly', js: true do
       scenario 'should commiserate' do
-        fill_in 'answer', with: "I don't know, man!"
-        click_button 'Check'
+        answer_incorrectly
         expect(page).to have_content 'Not quite!'
       end
     end
+    context 'when answered incorrectly 3 times', js: true do
+      scenario 'should commiserate' do
+        2.times { answer_incorrectly }
+        expect(page).to have_content 'Try "jsem"'
+      end
+    end
+  end
+end
+
+def answer_incorrectly
+  fill_in 'answer', with: "I don't know, man!"
+  click_button 'Check'
+end
+
+
+def wait_for_ajax
+  counter = 0
+  while page.execute_script("return $.active").to_i > 0
+    counter += 1
+    sleep(0.1)
+    raise "AJAX request took longer than 5 seconds." if counter >= 50
   end
 end

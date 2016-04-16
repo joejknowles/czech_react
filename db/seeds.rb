@@ -13,7 +13,7 @@ LearnHelper.create_question english_sentence: 'big', czech_sentence: 'velký'
 LearnHelper.create_question english_sentence: 'tall', czech_sentence: 'vysoký'
 LearnHelper.create_question english_sentence: 'poor', czech_sentence: 'chudý'
 LearnHelper.create_question english_sentence: 'rich', czech_sentence: 'bohatý'
-LearnHelper.create_question english_sentence: 'thin', czech_sentence: ['hubený', 'štihlý']
+LearnHelper.create_question english_sentence: 'thin', czech_sentences: ['hubený', 'štihlý']
 LearnHelper.create_question english_sentence: 'fat', czech_sentence: 'tlustý'
 LearnHelper.create_question english_sentence: 'healthy', czech_sentence: 'zdravý'
 LearnHelper.create_question english_sentence: 'sick', czech_sentence: 'nemocný'
