@@ -1,8 +1,13 @@
+require_relative '../helpers/answer_checking/response'
 class AnswerCheckerController < ApplicationController
   def check
     respond_to do |format|
-      result = AnswerCheckerHelper.check_answer params
-      format.json { render json: result.to_json }
+      response = Response.new clean_params
+      format.json { render json: response.to_json }
     end
+  end
+
+  def clean_params
+    params.permit(:answer, :sentence_id, :attempt)
   end
 end

@@ -14,6 +14,7 @@ class EnglishSentence < ActiveRecord::Base
     end
     sentence
   end
+
   def create_display
     @display = english_sentence_components.sort_by(&:word_position)
       .map(&:english_word)
