@@ -1,10 +1,12 @@
 class EnglishSentence < ActiveRecord::Base
   has_many :english_sentence_components
   has_many :czech_translations
+  belongs_to :lesson
   attr_reader :display
   after_initialize { |sentence| sentence.create_display }
   def self.create_sentence sentence_data
-    sentence = new
+    lesson = sentence_data[:lesson]
+    sentence = new(lesson: lesson)
     components = []
     sentence_data[:words].each_with_index do |word, word_index|
       components << EnglishSentenceComponent.create(
@@ -19,13 +21,13 @@ class EnglishSentence < ActiveRecord::Base
     @display = english_sentence_components.sort_by(&:word_position)
       .map(&:english_word)
       .map(&:spelling)
-      .join(' ')
+      .join(' ').capitalize
   end
 
   def as_json options={}
-  {
-    display: @display,
-    id: id
-  }
-end
+    {
+      display: @display,
+      id: id
+    }
+  end
 end

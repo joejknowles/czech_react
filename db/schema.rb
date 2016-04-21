@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410164745) do
+ActiveRecord::Schema.define(version: 20160418195306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,10 +55,19 @@ ActiveRecord::Schema.define(version: 20160410164745) do
   create_table "english_sentences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "lesson_id"
   end
+
+  add_index "english_sentences", ["lesson_id"], name: "index_english_sentences_on_lesson_id", using: :btree
 
   create_table "english_words", force: :cascade do |t|
     t.string   "spelling"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,4 +77,5 @@ ActiveRecord::Schema.define(version: 20160410164745) do
   add_foreign_key "czech_translations", "english_sentences"
   add_foreign_key "english_sentence_components", "english_sentences"
   add_foreign_key "english_sentence_components", "english_words"
+  add_foreign_key "english_sentences", "lessons"
 end

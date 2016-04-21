@@ -3,7 +3,7 @@ require_relative 'message_creator'
 
 class Response
   include AnswerChecker, MessageCreator
-  attr_reader :correct, :user_message
+  attr_reader :correct, :user_message, :suggestion
   def initialize info
     extract_info info
     check_answer

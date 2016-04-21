@@ -3,7 +3,8 @@ module LearnHelper
     Array(EnglishSentence.limit(100)).shuffle
   end
   def self.create_question question_data
-    english = EnglishSentence.create_sentence(
+    lesson = Lesson.find_or_create_by(name: question_data[:lesson_name])
+    english = EnglishSentence.create_sentence(lesson: lesson,
       words: question_data[:english_sentence].split(' ')
     )
     if czech_sentences = question_data[:czech_sentences]

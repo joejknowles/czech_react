@@ -30,10 +30,10 @@ feature 'practice' do
         expect(page).to have_content 'Not quite!'
       end
     end
-    context 'when answered incorrectly 3 times', js: true do
+    context 'when answered incorrectly 2 times', js: true do
       scenario 'should commiserate' do
         2.times { answer_incorrectly }
-        expect(page).to have_content 'Try "jsem"'
+        expect(page).to have_content ' "Jsem"'
       end
     end
   end
@@ -42,4 +42,5 @@ end
 def answer_incorrectly
   fill_in 'answer', with: "I don't know, man!"
   click_button 'Check'
+  expect(page).to have_content 'Not quite!'
 end

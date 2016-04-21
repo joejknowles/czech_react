@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   get 'learn' => 'learn#index'
+  get 'learning_tower' => 'learning_tower#index'
+
+  get 'learning_tower/:lesson_name' => 'learning_tower#show'
+
+
+
   post 'check_answer' => 'answer_checker#check'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

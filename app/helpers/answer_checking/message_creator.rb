@@ -1,6 +1,8 @@
+require_relative 'capitalizer'
 module MessageCreator
   def create_message
     if @correct
+      make_suggestion
       positive_response
     else
       negative_response
@@ -19,7 +21,12 @@ module MessageCreator
   end
 
   def add_suggestion
-    @user_message << " Try \"#{@correct_options.first}\"."
+    make_suggestion
+    @user_message << " \"#{@suggestion}\"."
+  end
+
+  def make_suggestion
+    puts @suggestion = Capitalizer.capitalize(@correct_options.first)
   end
 
   def second_attempt?

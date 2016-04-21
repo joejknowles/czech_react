@@ -1,0 +1,22 @@
+<% if @sentences.any? %>
+  <%= content_tag 'div', id: 'tower', class: 'col-md-4' do %>
+    <%= content_tag 'div', @sentences[0].display, id: 'question' %>
+    <% @sentences[1..-1].each do |sentence| %>
+      <%= content_tag 'div', sentence.display, id: sentence.id %>
+    <% end %>
+  <% end %>
+  <%= content_tag 'div', class: 'col-md-8' do %>
+    <%= form_tag("/check_answer", id: 'answer-form',method: 'post', remote: true) do %>
+      <%= label_tag(:answer, "Enter answer:", hidden: 'hidden') %>
+      <%= text_field_tag(:answer,'', placeholder: 'You know this!', autofocus: true, autocomplete: 'off') %>
+      <%= hidden_field_tag(:sentence_id, @first_sentence.id) %>
+      <%= hidden_field_tag(:attempt, 1) %>
+      <%= submit_tag("Check") %>
+    <% end %>
+
+    <%= content_tag 'div', '', id: 'user-message' %>
+  <% end %>
+
+<% else %>
+  There are no words.
+<% end %>
