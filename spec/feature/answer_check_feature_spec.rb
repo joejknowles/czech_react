@@ -28,9 +28,10 @@ feature 'Answer cheking' do
 
     scenario 'with capitalized non-ascii characters', js: true do
       answer_with 'Leden'
-      answer_with 'Únor'
-      expect(page).to have_content 'nice!'
       expect(page).to have_content 'January Leden'
+      answer_with 'Únor'
+      expect(page).to have_content 'February Únor'
+      expect(page).to have_content 'nice!'
       expect(find('#question').text).to eq('March')
     end
 
