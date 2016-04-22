@@ -1,13 +1,14 @@
 feature 'separate lessons in learning tower' do
   context 'words have been added to months lesson and separately' do
     before do
-      LearnTestHelper.create_first_lesson
       LearningTowerTestHelper.create_months_lesson
       visit '/learning_tower/months'
     end
 
     scenario 'should have months' do
-      expect(page).to have_content english_months
+      english_months.each do |month|
+      expect(page).to have_content month
+      end
     end
 
     scenario 'should not have "I am"' do
@@ -25,5 +26,5 @@ feature 'separate lessons in learning tower' do
 end
 
 def english_months
-  'January February March April May June July August September October November December'
+  %w(January February March April May June July August September October November December)
 end

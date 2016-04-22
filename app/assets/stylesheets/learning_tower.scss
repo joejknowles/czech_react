@@ -1,3 +1,34 @@
-// Place all the styles related to the learning_tower controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.source-sentence {
+  text-align: right;
+}
+
+.top-half {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+
+@-webkit-keyframes demo {
+    0% {
+        background-color:   #00FF00;
+        opacity:0.5;
+    }
+    22% {
+        opacity:1;
+    }
+    77% {
+        opacity:0.5;
+    }
+    100% {
+        background-color: white;
+        opacity:1;
+    }
+}
+
+.demo {
+    -webkit-animation-name: demo;
+    -webkit-animation-duration: 900ms;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in-out;
+}

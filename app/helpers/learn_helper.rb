@@ -7,8 +7,8 @@ module LearnHelper
     english = EnglishSentence.create_sentence(lesson: lesson,
       words: question_data[:english_sentence].split(' ')
     )
-    if czech_sentences = question_data[:czech_sentences]
-      czech_sentences.each do |czech|
+    if (czech_sentence = question_data[:czech_sentence]).kind_of? Array
+      czech_sentence.each do |czech|
         create_czech english, czech
       end
     else

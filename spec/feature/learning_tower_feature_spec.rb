@@ -19,7 +19,9 @@ include AnswerHelper
 
     scenario 'should display list of english words' do
       expect(find('#question').text).to eq('January')
-      expect(page).to have_content english_months
+      english_months.each do |month|
+        expect(page).to have_content month
+      end
     end
 
     scenario 'when answered correctly', js: true do
@@ -34,7 +36,7 @@ include AnswerHelper
       answer_two
       expect(page).to have_content 'nice!'
       expect(page).to have_content 'January Leden'
-      expect(page).to have_content 'February Únor'
+      expect(page).to have_content 'Únor'
       expect(find('#question').text).to eq('March')
     end
 
@@ -60,7 +62,7 @@ def answer_incorrectly
 end
 
 def english_months
-  'January February March April May June July August September October November December'
+  %w(January February March April May June July August September October November December)
 end
 
 def answer_two

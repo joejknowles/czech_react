@@ -1,0 +1,4 @@
+<%= content_tag 'div', sentences[0].display, id: 'question', data: { sentence_id: sentences[0].id }, class: 'source-sentence' %>
+<% sentences[1..-1].each do |sentence| %>
+  <%= content_tag 'div', sentence.display, data: { sentence_id: sentence.id }, class: 'source-sentence'  %>
+<% end %>

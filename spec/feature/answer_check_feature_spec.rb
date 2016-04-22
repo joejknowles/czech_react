@@ -3,7 +3,7 @@ require 'test_helpers/learning_tower_test_helper'
 require 'test_helpers/answer_helper'
 include AnswerHelper
 
-feature 'Answer cheking' do
+feature 'Answer checking' do
   context 'accepts varied casing' do
     before do
       LearningTowerTestHelper.create_months_lesson
@@ -14,7 +14,7 @@ feature 'Answer cheking' do
       fill_in 'answer', with: 'LeDeN'
       click_button 'Check'
       expect(page).to have_content 'nice!'
-      expect(page).to have_content 'January Leden'
+      expect(page).to have_content 'Leden'
       expect(find('#question').text).to eq('February')
     end
 
@@ -22,15 +22,15 @@ feature 'Answer cheking' do
       fill_in 'answer', with: 'leden'
       click_button 'Check'
       expect(page).to have_content 'nice!'
-      expect(page).to have_content 'January Leden'
+      expect(page).to have_content 'Leden'
       expect(find('#question').text).to eq('February')
     end
 
     scenario 'with capitalized non-ascii characters', js: true do
       answer_with 'Leden'
-      expect(page).to have_content 'January Leden'
+      expect(page).to have_content 'Leden'
       answer_with 'Únor'
-      expect(page).to have_content 'February Únor'
+      expect(page).to have_content 'Únor'
       expect(page).to have_content 'nice!'
       expect(find('#question').text).to eq('March')
     end
@@ -39,7 +39,7 @@ feature 'Answer cheking' do
       answer_with 'Leden'
       answer_with 'únor'
       expect(page).to have_content 'nice!'
-      expect(page).to have_content 'February Únor'
+      expect(page).to have_content 'Únor'
       expect(find('#question').text).to eq('March')
     end
   end
@@ -60,7 +60,7 @@ feature 'Answer cheking' do
       answer_with 'Leden'
       answer_with 'unor'
       expect(page).to have_content 'nice!'
-      expect(page).to have_content 'February Únor'
+      expect(page).to have_content 'Únor'
       expect(find('#question').text).to eq('March')
     end
   end
