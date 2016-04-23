@@ -13,6 +13,7 @@
   * Ignore punctuation
   * Highlight minor errors (diacritics etc.)
   * Recognize typos
+  * Instant submission on correct answer
 ### Multiple correct answers
   * Check against multiple correct answers ✓
   * Structure variations somehow
