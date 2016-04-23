@@ -1,24 +1,24 @@
 # Features
 
-## Basic QnA
-  1. See question ✓
-  2. input answer ✓
-  3. see confirmation / rejection ✓
-  4. See correction after multiple ✓
-  5. Show punctuation
+# Basic QnA
+  * See question ✓
+  * input answer ✓
+  * see confirmation / rejection ✓
+  * See correction after multiple ✓
+  * Show punctuation
 
-## Answer Grading
-  6. Ignore casing ✓
-  7. Ignore accents ✓
-  8. Ignore punctuation
-  9. Highlight minor errors (diacritics etc.)
-  10. Recognize typos
+# Answer Grading
+  * Ignore casing ✓
+  * Ignore accents ✓
+  * Ignore punctuation
+  * Highlight minor errors (diacritics etc.)
+  * Recognize typos
 ### Multiple correct answers
   * Check against multiple correct answers ✓
   * Structure variations somehow
   * Model word order
 
-## Advanced interface
+# Advanced interface
   * Use ajax ✓
   * Answer input
     * Link to keyboard help
@@ -38,18 +38,18 @@
   * Don't re-ask question that have been answered correctly many times
   * Reorder some words when learnt
 
-#### Single question
-  *
+### Single question
+  * One question at a time ✓
 
-### Introduction to New Words
+# Introduction to New Words
   * No ideas...
 
-## Website
+# Website
   * Home page
   * Navigation between lessons
   * Logins
 
-## Progress feedback
+# Progress feedback
   * Display correct answer streak
   * Store correct answers
   * Calculate knowledge of individual words or components of answers / lexemes
@@ -59,7 +59,7 @@
   * Order by correct percentage
   * Order by average correct percentage of lexemes
 
-## Lesson content
+# Lesson content
 
 ### Input
   * Input lessons as seeds in code ✓
