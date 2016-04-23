@@ -20,7 +20,7 @@
 
 # Advanced interface
   * Use ajax ✓
-  * Answer input
+  * Diacritic answer input
     * Link to keyboard help
     * Special character buttons
 
