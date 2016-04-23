@@ -12,6 +12,7 @@
   * Ignore accents (/)
   * Ignore punctuation
   * Highlight minor errors (diacritics etc.)
+  * Recognize typos
 
 ### Multiple correct answers
   * Check against multiple correct answers (/)
