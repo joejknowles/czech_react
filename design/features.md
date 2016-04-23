@@ -13,7 +13,6 @@
   * Ignore punctuation
   * Highlight minor errors (diacritics etc.)
   * Recognize typos
-
 ### Multiple correct answers
   * Check against multiple correct answers ✓
   * Structure variations somehow
@@ -34,11 +33,16 @@
     * Make sanitized version of their given answer rather than first answer
   * Restart after wrong answer ✓
     * Restart without refreshing page
+  * Decide and implement finished pages questions behaviour
   * Introduce new words with answers
   * Don't re-ask question that have been answered correctly many times
   * Reorder some words when learnt
 
+#### Single question
+  *
+
 ### Introduction to New Words
+  * No ideas...
 
 ## Website
   * Home page

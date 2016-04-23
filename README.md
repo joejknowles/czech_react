@@ -1,10 +1,10 @@
 == README
 
-* Design
-  * [Features](https://bitbucket.org/joejknowles/learncz/src/master/design/features.md?at=master&fileviewer=file-view-default)
+  * Design
+    * [Features](https://bitbucket.org/joejknowles/learncz/src/master/design/features.md?at=master&fileviewer=file-view-default)
 
-* Ruby version
-  - 2.2.1
+  * Ruby version
+    2.2.1
 
 * System dependencies
 
