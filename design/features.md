@@ -34,7 +34,7 @@
     * Make sanitized version of their given answer rather than first answer
   * Restart after wrong answer ✓
     * Restart without refreshing page
-  * Decide and implement finished pages questions behaviour
+  * Decide and implement bahaviour for finishing last question of a lesson
   * Introduce new words with answers
   * Don't re-ask question that have been answered correctly many times
   * Reorder some words when learnt
