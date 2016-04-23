@@ -1,39 +1,39 @@
 # Features
 
 ## Basic QnA
-  * See question (/)
-  * input answer (/)
-  * see confirmation / rejection (/)
-  * See correction after multiple (/)
+  * See question ✓
+  * input answer ✓
+  * see confirmation / rejection ✓
+  * See correction after multiple ✓
   * Show punctuation
 
 ## Answer Grading
-  * Ignore casing (/)
-  * Ignore accents (/)
+  * Ignore casing ✓
+  * Ignore accents ✓
   * Ignore punctuation
   * Highlight minor errors (diacritics etc.)
   * Recognize typos
 
 ### Multiple correct answers
-  * Check against multiple correct answers (/)
+  * Check against multiple correct answers ✓
   * Structure variations somehow
   * Model word order
 
 ## Advanced interface
-  * Use ajax (/)
+  * Use ajax ✓
   * Answer input
-    ** Link to keyboard help
-    ** Special character buttons
+    * Link to keyboard help
+    * Special character buttons
 
 ### Lesson types
-  ####Tower
-  * Make list of question words (/)
-  * Move list up on correct answer to build tower (/)
-    ** (Keep input centred)
-  * Add correct answers to tower (/)
-    ** Make sanitized version of their given answer rather than first answer
-  * Restart after wrong answer (/)
-    ** Restart without refreshing page
+#### Tower
+  * Make list of question words ✓
+  * Move list up on correct answer to build tower ✓
+    * (Keep input centred)
+  * Add correct answers to tower ✓
+    * Make sanitized version of their given answer rather than first answer
+  * Restart after wrong answer ✓
+    * Restart without refreshing page
   * Introduce new words with answers
   * Don't re-ask question that have been answered correctly many times
   * Reorder some words when learnt
@@ -58,9 +58,9 @@
 ## Lesson content
 
 ### Input
-  * Input lessons as seeds in code (/)
-    ** Avoid duplicated words (/)
-    ** Avoid duplicated sentences
+  * Input lessons as seeds in code ✓
+    * Avoid duplicated words ✓
+    * Avoid duplicated sentences
   * Input lessons via .CSV files
   * Input lessons via web interface
   * Autocomplete web input
