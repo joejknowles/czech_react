@@ -1,18 +1,18 @@
 # Features
 
 ## Basic QnA
-  * See question ✓
-  * input answer ✓
-  * see confirmation / rejection ✓
-  * See correction after multiple ✓
-  * Show punctuation
+  1. See question ✓
+  2. input answer ✓
+  3. see confirmation / rejection ✓
+  4. See correction after multiple ✓
+  5. Show punctuation
 
 ## Answer Grading
-  * Ignore casing ✓
-  * Ignore accents ✓
-  * Ignore punctuation
-  * Highlight minor errors (diacritics etc.)
-  * Recognize typos
+  6. Ignore casing ✓
+  7. Ignore accents ✓
+  8. Ignore punctuation
+  9. Highlight minor errors (diacritics etc.)
+  10. Recognize typos
 ### Multiple correct answers
   * Check against multiple correct answers ✓
   * Structure variations somehow
