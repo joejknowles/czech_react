@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418195306) do
+ActiveRecord::Schema.define(version: 20160424160708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160418195306) do
     t.integer  "english_sentence_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "display"
   end
 
   add_index "czech_translations", ["english_sentence_id"], name: "index_czech_translations_on_english_sentence_id", using: :btree
@@ -56,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160418195306) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "lesson_id"
+    t.string   "display"
   end
 
   add_index "english_sentences", ["lesson_id"], name: "index_english_sentences_on_lesson_id", using: :btree

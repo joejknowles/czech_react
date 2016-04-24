@@ -7,18 +7,18 @@ module Seeds
     def self.add_months
       VocabCreator.new.create(
         'months',
-        ['january', ['leden']],
-        ['february', ['únor']],
-        ['march', ['březen']],
-        ['april', ['duben']],
-        ['may', ['květen']],
-        ['june', ['červen']],
-        ['july', ['červenec']],
-        ['august', ['srpen']],
-        ['september', ['září']],
-        ['october', ['říjen']],
-        ['november', ['listopad']],
-        ['december', ['prosinec']]
+        ['January', ['leden']],
+        ['February', ['únor']],
+        ['March', ['březen']],
+        ['April', ['duben']],
+        ['May', ['květen']],
+        ['June', ['červen']],
+        ['July', ['červenec']],
+        ['August', ['srpen']],
+        ['September', ['září']],
+        ['October', ['říjen']],
+        ['November', ['listopad']],
+        ['December', ['prosinec']]
       )
     end
 
