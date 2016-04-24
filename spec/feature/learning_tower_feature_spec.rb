@@ -28,14 +28,16 @@ include AnswerHelper
       fill_in 'answer', with: 'Leden'
       click_button 'Check'
       expect(page).to have_content 'nice!'
-      expect(page).to have_content 'January Leden'
+      expect(page).to have_content 'Leden'
+      expect(page).to have_content 'January'
       expect(find('#question').text).to eq('February')
     end
 
     scenario 'when answered correctly multiple times', js: true do
       answer_two
       expect(page).to have_content 'nice!'
-      expect(page).to have_content 'January Leden'
+      expect(page).to have_content 'Leden'
+      expect(page).to have_content 'January'
       expect(page).to have_content 'Únor'
       expect(find('#question').text).to eq('March')
     end

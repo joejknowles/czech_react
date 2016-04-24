@@ -4,7 +4,7 @@ module Seeds
       add_adjectives1
     end
     def self.add_adjectives1
-      VocabCreator.create(
+      VocabCreator.new.create(
         'adjectives1',
         ['small', 'malý'],
         ['big', 'velký'],

@@ -14,14 +14,6 @@ feature 'separate lessons in learning tower' do
     scenario 'should not have "I am"' do
       expect(page).not_to have_content 'I am'
     end
-
-    scenario 'when answered correctly', js: true do
-      fill_in 'answer', with: 'Leden'
-      click_button 'Check'
-      expect(page).to have_content 'nice!'
-      expect(page).to have_content 'January Leden'
-      expect(find('#question').text).to eq('February')
-    end
   end
 end
 

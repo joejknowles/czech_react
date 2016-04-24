@@ -5,33 +5,33 @@ module Seeds
       add_days
     end
     def self.add_months
-      VocabCreator.create(
+      VocabCreator.new.create(
         'months',
-        ['January', 'leden'],
-        ['February', 'únor'],
-        ['March', 'březen'],
-        ['April', 'duben'],
-        ['May', 'květen'],
-        ['June', 'červen'],
-        ['July', 'červenec'],
-        ['August', 'srpen'],
-        ['September', 'září'],
-        ['October', 'říjen'],
-        ['November', 'listopad'],
-        ['December', 'prosinec']
+        ['january', ['leden']],
+        ['february', ['únor']],
+        ['march', ['březen']],
+        ['april', ['duben']],
+        ['may', ['květen']],
+        ['june', ['červen']],
+        ['july', ['červenec']],
+        ['august', ['srpen']],
+        ['september', ['září']],
+        ['october', ['říjen']],
+        ['november', ['listopad']],
+        ['december', ['prosinec']]
       )
     end
 
     def self.add_days
-      VocabCreator.create(
+      VocabCreator.new.create(
         'days',
-        ['Monday', 'pondělí'],
-        ['Tuesday', 'úterý'],
-        ['Wednesday', 'středa'],
-        ['Thursday', 'čtvrtek'],
-        ['Friday', 'pátek'],
-        ['Saturday', 'sobota'],
-        ['Sunday', 'neděli']
+        ['Monday', ['pondělí']],
+        ['Tuesday', ['úterý']],
+        ['Wednesday', ['středa']],
+        ['Thursday', ['čtvrtek']],
+        ['Friday', ['pátek']],
+        ['Saturday', ['sobota']],
+        ['Sunday', ['neděli']]
       )
     end
   end

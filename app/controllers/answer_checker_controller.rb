@@ -1,4 +1,4 @@
-require_relative '../helpers/answer_checking/response'
+require_relative '../src/answer_checking/response'
 class AnswerCheckerController < ApplicationController
   def check
     require_relative '../helpers/answer_checking/response' unless defined? Response

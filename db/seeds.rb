@@ -8,13 +8,12 @@
 
 require_relative './seed_files/time_sentences'
 require_relative './seed_files/adjectives'
+require './app/src/lesson_input/vocab_creator'
 
-Seeds::TimeSentences.add_all
 
 #adjectives
 Seeds::Adjectives.add_all
 #verbs
-# LearnHelper.create_question english_sentence: 'I am', czech_sentence: 'jsem'
-# LearnHelper.create_question english_sentence: 'You are', czech_sentence: 'jsi'
 
 #time
+Seeds::TimeSentences.add_all
