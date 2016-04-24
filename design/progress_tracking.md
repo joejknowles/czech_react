@@ -22,11 +22,11 @@ and basic success streak feedback should be enough for me to manage my own learn
     * CQ frequency decided by knowledge score of question words
     
 ## Sentence storage
-reasons to store separately:
+Reasons to store separately:
   * Allows single word progress tracking
   * Allows storage of word tables
   * Something like this could be necessary for word hints although it could be done differently
-reasons not to:
+Reasons not to:
   * very complicated code
   * Makes punctuation difficult
   * Less time processing efficient
