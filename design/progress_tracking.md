@@ -23,10 +23,13 @@ and basic success streak feedback should be enough for me to manage my own learn
     
 ## Sentence storage
 Reasons to store separately:
+
   * Allows single word progress tracking
   * Allows storage of word tables
   * Something like this could be necessary for word hints although it could be done differently
+  
 Reasons not to:
+
   * very complicated code
   * Makes punctuation difficult
   * Less time processing efficient
