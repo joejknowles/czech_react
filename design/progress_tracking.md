@@ -39,6 +39,7 @@ This dilemma brings into question my early decision to normalize all sentences b
 and in the case of the source language where I can't imagine a scenario where the words need to be referenced individually, I no longer think
 it's useful to structure the tables like this. I originially thought all words might be monitored for progress. or that having them separately
 might be useful for sentence comparrison trees. The reasons they still might be useful are: 
+
   * word tables, but that's a long way off being implemented and would need multiple tables of its own anyway
   * word hints, but I don't particularly even like that feature
 
