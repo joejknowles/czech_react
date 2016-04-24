@@ -25,6 +25,7 @@ and basic success streak feedback should be enough for me to manage my own learn
 Reasons to store separately:
 
   * Allows single word progress tracking
+  * Could be useful for word order flexibility
   * Allows storage of word tables
   * Something like this could be necessary for word hints although it could be done differently
   
