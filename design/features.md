@@ -50,7 +50,7 @@
   * Navigation between lessons
   * Logins
 
-# Progress feedback
+# [Progress feedback](https://bitbucket.org/joejknowles/learncz/src/master/design/progress_tracking.md?at=master&fileviewer=file-view-default)
   * Display correct answer streak
   * Store correct answers
   * Calculate knowledge of individual words or components of answers / lexemes
