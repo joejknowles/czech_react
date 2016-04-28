@@ -1,6 +1,6 @@
-require './app/src/lesson_input/vocab_creator'
+require './db/seeding/src/seed_adaptors/verbs'
 class LearnTestHelper
   def self.create_first_lesson
-    VocabCreator.new.create 'verbs', ['I am', ['Jsem']]
+    Seeds::Verbs.add_first_verb
   end
 end

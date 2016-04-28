@@ -37,6 +37,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'rspec-mocks'
   gem 'poltergeist'
   gem 'selenium'
   gem 'selenium-webdriver'

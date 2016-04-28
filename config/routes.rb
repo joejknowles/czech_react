@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'learning_tower/:lesson_name' => 'learning_tower#show'
 
-
+  get '/' => 'home#index'
 
   post 'check_answer' => 'answer_checker#check'
   # Example of regular route:

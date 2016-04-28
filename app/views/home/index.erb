@@ -1,0 +1,7 @@
+<ul>
+<% @lessons.each do |lesson| %>
+  <li>
+    <%= link_to lesson.name, "/learning_tower/#{lesson.name}"%>
+  </li>
+<% end %>
+</ul>

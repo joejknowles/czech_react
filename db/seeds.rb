@@ -6,14 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-require_relative './seed_files/time_sentences'
-require_relative './seed_files/adjectives'
+require_relative './seeding/src/seed_adaptors/all_files'
+require_relative './seeding/src/seed_adaptors/adjectives'
+require_relative './seeding/src/seed_controller'
 require './app/src/lesson_input/vocab_creator'
 
 
-#adjectives
-Seeds::Adjectives.add_all
-#verbs
-
-#time
-Seeds::TimeSentences.add_all
+Seeds::AllFiles.add_all

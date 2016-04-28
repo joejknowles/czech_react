@@ -10,15 +10,13 @@ class VocabCreator
   def create_questions
     @questions.each do |question|
       create_question(
-        lesson: @lesson,
         english_sentence: question[0],
         czech_sentences: question[1])
     end
   end
 
   def create_question question_data
-    lesson = question_data[:lesson]
-    english = EnglishSentence.find_or_create_by(lesson: lesson,
+    english = EnglishSentence.find_or_create_by(lesson: @lesson,
       display: question_data[:english_sentence]
     )
     question_data[:czech_sentences].each do |czech|

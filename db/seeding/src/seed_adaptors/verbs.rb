@@ -1,5 +1,6 @@
+require './app/src/lesson_input/vocab_creator'
 module Seeds
-  module TimeSentences
+  module Verbs
     def self.add_all
     end
     def self.add_first_verb

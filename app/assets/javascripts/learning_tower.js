@@ -1,3 +1,4 @@
+$(document).ready(function(){
 var urlParts = window.location.href.split('/')
 if (urlParts.pop() === 'learning_tower' || urlParts.pop() === 'learning_tower'){
   $(document).ready(function(){
@@ -18,6 +19,19 @@ if (urlParts.pop() === 'learning_tower' || urlParts.pop() === 'learning_tower'){
       setTimeout(function(){
         userMessage.removeClass('demo');
       }, 1000);
+      if ($('#low-tower div').length === 1) {
+        var current = $('#question');
+        var correctAnswer = $('<div class="correct-answer">'+ data.suggestion + '</div>');
+        correctAnswer.prependTo('#answer-tower');
+        current.attr('id', '');
+        current.addClass('finished');
+        //redirect to next lesson or load next lesson's words
+      } else {
+        setNextQ(data);
+      }
+    }
+
+    function setNextQ(data) {
       var current = $('#question');
       var correctAnswer = $('<div class="correct-answer">'+ data.suggestion + '</div>');
       correctAnswer.prependTo('#answer-tower');
@@ -47,3 +61,4 @@ if (urlParts.pop() === 'learning_tower' || urlParts.pop() === 'learning_tower'){
     }  });
 }
 
+});
