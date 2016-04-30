@@ -1,21 +1,153 @@
-<% if @sentences.any? %>
-  <%= content_tag 'div', '', id: 'high-tower', class: 'col-md-4 top-half' %>
-  <%= content_tag 'div', '', id: 'answer-tower', class: 'col-md-8 top-half' %>
-  <%= content_tag 'div', id: 'low-tower', class: 'col-md-4' do %>
-    <%= render partial: 'partials/question_tower', locals: { sentences: @sentences } %>
-  <% end %>
-  <%= content_tag 'div', class: 'col-md-8' do %>
-    <%= render partial: 'partials/answer_form', locals: { sentence: @first_sentence } %>
-    <%= content_tag 'div', '', id: 'user-message' %>
-  <% end %>
-<% else %>
-  There are no words.
-<% end %>
+<%= content_tag 'div', '', id: 'container' %>
 
 <script type="text/babel">
 
+  var Main = React.createClass({
+    getInitialState: function() {
+      return { unansweredQuestions: <%= @sentences.to_json.to_s.html_safe %>, questionId: <%= @first_sentence.id %>, answeredQuestions: [], correctAnswers:[] };
+    },
+    handleAnswerSubmit: function(answer) {
+      answer.sentence_id = this.state.questionId
+      $.ajax({
+        url: '/api/check_answer',
+        dataType: 'json',
+        type: 'POST',
+        data: answer,
+        success: function(data) {
+          this.handleAnswerCheckResponse(data);
+        }.bind(this),
+        error: function(xhr, status, err) {
+          alert(err.toString());
+        }.bind(this)
+      });
+    },
+    handleAnswerCheckResponse: function(data) {
+      if (data.correct) {
+        this.handleCorrectAnswer(data)
+      } else {
+        this.handleIncorrectAnswer(data);
+      }
+    },
+    handleCorrectAnswer: function(data) {
+      this.setState({correctAnswers: [{ display: data.suggestion, id: this.state.questionId }].concat(this.state.correctAnswers)});
+      this.setState({answeredQuestions: [this.state.unansweredQuestions.shift()].concat(this.state.answeredQuestions)});
+      this.setState({questionId: this.state.unansweredQuestions[0].id});
+      console.log(this.state);
+    },
+    handleIncorrectAnswer: function(data) {
+
+    },
+    render: function() {
+      if (this.state.unansweredQuestions) {
+        return (
+          <div>
+            < AnsweredQuestionsList data={ this.state.answeredQuestions } />
+            < CorrectAnswersList data={ this.state.correctAnswers } />
+            < UnansweredQuestionsList data={ this.state.unansweredQuestions } />
+            <%= content_tag 'div', className: 'col-md-8' do %>
+              <AnswerForm submitAnswer={ this.handleAnswerSubmit } />
+            <% end %>
+          </div>
+        )
+      } else {
+        return 'There are no words.';
+      }
+    }
+  });
+
+  var AnsweredQuestionsList = React.createClass({
+    render: function() {
+      var answeredQuestionNodes = this.props.data.map(function(question){
+        return <question key={question.id} className='source-sentence finished' >{question.display}</question>;
+      });
+      return (
+        <%= content_tag 'div', '', id: 'high-tower', className: 'col-md-4 top-half' do %>
+          { answeredQuestionNodes }
+        <% end %>
+      );
+    }
+  });
+
+    var CorrectAnswersList = React.createClass({
+    render: function() {
+      var answerNodes = this.props.data.map(function(correctAnswer){
+        return <correctAnswer key={correctAnswer.id} className='finished' >{correctAnswer.display}</correctAnswer>;
+      });
+      return (
+        <%= content_tag 'div', '', id: 'answer-tower', className: 'col-md-8 top-half'  do %>
+          { answerNodes }
+        <% end %>
+      );
+    }
+  });
+
+  var correctAnswer = React.createClass({
+    render: function() {
+      return (
+        <div>{this.props.children.toString()}</div>
+      );
+    }
+  });
+
+
+  var UnansweredQuestionsList = React.createClass({
+    render: function() {
+      var unansweredQuestionNodes = this.props.data.map(function(question){
+        return <question key={question.id} className='source-sentence' >{question.display}</question>;
+      });
+      return (
+        <%= content_tag 'div', id: 'low-tower', className: 'col-md-4' do %>
+          { unansweredQuestionNodes }
+        <% end %>
+      );
+    }
+  });
+
+  var question = React.createClass({
+    render: function() {
+      return (
+        <div>{this.props.children.toString()}</div>
+      );
+    }
+  });
+
+
+
+  var AnswerForm = React.createClass({
+    getInitialState: function() {
+      return { answer: ''};
+    },
+    handleAnswerChange: function(e) {
+      this.setState({answer: e.target.value});
+    },
+    handleSubmit: function(e) {
+      e.preventDefault();
+      var answer = this.state.answer.trim();
+      if (!answer) return;
+      this.props.submitAnswer({answer: answer})
+      this.setState({answer: ''})
+    },
+    render: function() {
+      return (
+        <form id='answer-form' className='answerForm' onSubmit={this.handleSubmit}>
+          <%= label_tag(:answer, "Enter answer:", hidden: 'hidden') %>
+          <input
+            type="text"
+            name="answer"
+            id="answer"
+            placeholder="You know this!"
+            value={this.state.answer}
+            autoFocus='true'
+            autoComplete='off'
+            onChange={this.handleAnswerChange} />
+          <%= submit_tag("Check") %>
+        </form>
+      );
+    }
+  });
+
   ReactDOM.render(
-    <h1>Hello, world!</h1>,
-    document.getElementById('answer-form')
+    <Main />,
+    document.getElementById('container')
   );
 </script>

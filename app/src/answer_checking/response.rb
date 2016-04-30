@@ -13,8 +13,9 @@ class Response
   private
 
   def extract_info info
-    @answer = info[:answer].downcase
-    @sentence = info[:sentence_id]
-    @attempt = info[:attempt].to_i
+    p @answer = info[:answer].downcase
+    p @sentence = info[:sentence_id]
+    p @attempt = info[:attempt].to_i
+
   end
 end

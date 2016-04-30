@@ -3,15 +3,8 @@ var urlParts = window.location.href.split('/')
 if (urlParts.pop() === 'learning_tower' || urlParts.pop() === 'learning_tower'){
   $(document).ready(function(){
 
-    $('#answer-form').on('ajax:success', function(e, data, status, xhr){
-      if (data.correct) {
-        correctAnswerReaction(data);
-      } else {
-        incorrectAnswerReaction(data);
-      }
-    });
+    window.correctAnswerReaction = function (data) {
 
-    function correctAnswerReaction(data) {
       userMessage = $('#user-message')
       userMessage.html(data.user_message);
       userMessage.removeClass('demo');
@@ -31,7 +24,7 @@ if (urlParts.pop() === 'learning_tower' || urlParts.pop() === 'learning_tower'){
       }
     }
 
-    function setNextQ(data) {
+    window.setNextQ = function(data) {
       var current = $('#question');
       var correctAnswer = $('<div class="correct-answer">'+ data.suggestion + '</div>');
       correctAnswer.prependTo('#answer-tower');
@@ -47,7 +40,7 @@ if (urlParts.pop() === 'learning_tower' || urlParts.pop() === 'learning_tower'){
       $('#attempt').val(1);
     }
 
-    function incorrectAnswerReaction(data) {
+    window.incorrectAnswerReaction = function(data) {
       attempt = $('#attempt');
       attemptInt = parseInt(attempt.val());
       userMessage = $('#user-message');

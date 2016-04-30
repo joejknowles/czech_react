@@ -7,7 +7,7 @@ class EnglishSentence < ActiveRecord::Base
 
   def as_json options={}
     {
-      display: @display,
+      display: display,
       id: id
     }
   end
