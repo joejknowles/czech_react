@@ -2,16 +2,10 @@
   <%= flash[:answer_check_response] %>
 </div>
 <%= content_tag "div", id: "sentences", data: {sentences: @sentences} do%><% end %>
-<% if @sentence %>
+<% if @first_sentence %>
   <h3>Translate to Czech:</h3>
-  <p id='question'><%=@sentence.display%></p>
-  <%= form_tag("/check_answer", id: 'answer-form',method: 'post', remote: true) do %>
-    <%= label_tag(:answer, "Enter answer:", hidden: 'hidden') %>
-    <%= text_field_tag(:answer,'', placeholder: 'You know this!', autofocus: true, autocomplete: 'off') %>
-    <%= hidden_field_tag(:sentence_id, @sentence.id) %>
-    <%= hidden_field_tag(:attempt, 1) %>
-    <%= submit_tag("Check") %>
-  <% end %>
+  <p id='question'><%=@first_sentence.display%></p>
+  <%= render partial: 'partials/answer_form', locals: { sentence: @first_sentence } %>
 <% else %>
   <p>There are no words.</p>
 <% end %>

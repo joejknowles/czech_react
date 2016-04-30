@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   get 'learn' => 'learn#index'
   get 'learning_tower' => 'learning_tower#index'
 
-  get 'learning_tower/:lesson_name' => 'learning_tower#show'
+  get 'learning_tower/:lesson_name' => 'learning_tower#index'
 
   get '/' => 'home#index'
 
-  post 'check_answer' => 'answer_checker#check'
+  namespace :api do
+    post 'check_answer' => 'answer_checker#check'
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
