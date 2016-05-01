@@ -5,13 +5,13 @@ feature 'separate lessons in learning tower' do
       visit '/learning_tower/months'
     end
 
-    scenario 'should have months' do
+    scenario 'should have months', js: true do
       english_months.each do |month|
       expect(page).to have_content month
       end
     end
 
-    scenario 'should not have "I am"' do
+    scenario 'should not have "I am"', js: true do
       expect(page).not_to have_content 'I am'
     end
   end
