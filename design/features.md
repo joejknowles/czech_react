@@ -1,4 +1,6 @@
-# Features
+# Features **DEPRECATED**
+
+see [Trello Board](https://trello.com/b/t0RG7zk9/learncz) backlog for up to date feature lists.
 
 # Basic QnA
   * See question ✓
