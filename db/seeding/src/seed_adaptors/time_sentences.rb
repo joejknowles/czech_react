@@ -2,8 +2,8 @@ require_relative '../seed_controller'
 module Seeds
   module TimeSentences
     def self.add_all
-      add_months
       add_days
+      add_months
     end
 
     def self.add_months

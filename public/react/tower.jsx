@@ -1,15 +1,20 @@
 
 var Main = React.createClass({
   getInitialState: function() {
-    return { unansweredQuestions: [], questionId: null, answeredQuestions: [], correctAnswers:[] };
+    return { unansweredQuestions: [],
+             answeredQuestions: [],
+             correctAnswers:[],
+             currentLesson: this.getFirstLesson() };
   },
   componentDidMount: function() {
-    this.requestLesson();
+    this.requestLesson({name: this.state.currentLesson});
   },
-  requestLesson: function() {
-    var lesson = {name: window.location.pathname.split('/').pop()};
+  getFirstLesson: function() {
+    return window.location.pathname.split('/').pop();
+  },
+  requestLesson: function(lesson, action = '') {
     $.ajax({
-      url: '/api/lesson',
+      url: '/api/lesson' + action,
       dataType: 'json',
       type: 'GET',
       data: lesson,
@@ -22,13 +27,18 @@ var Main = React.createClass({
     });
   },
   setLesson: function(data) {
-    if (data[0]) {
-
-      this.setState({unansweredQuestions: data, questionId: data[0].id})
+    if (data.sentences[0]) {
+      this.setState({
+        unansweredQuestions: this.state.unansweredQuestions.concat(data.sentences),
+        currentLesson: data.lessonName
+      })
     }
   },
+  currentQuestionId: function() {
+    return this.state.unansweredQuestions[0].id;
+  },
   handleAnswerSubmit: function(answer) {
-    answer.sentence_id = this.state.questionId
+    answer.sentence_id = this.currentQuestionId();
     $.ajax({
       url: '/api/check_answer',
       dataType: 'json',
@@ -50,9 +60,11 @@ var Main = React.createClass({
     }
   },
   handleCorrectAnswer: function(data) {
-    this.setState({correctAnswers: [{ display: data.suggestion, id: this.state.questionId }].concat(this.state.correctAnswers)});
+    this.setState({correctAnswers: [{ display: data.suggestion, id: this.currentQuestionId() }].concat(this.state.correctAnswers)});
     this.setState({answeredQuestions: [this.state.unansweredQuestions.shift()].concat(this.state.answeredQuestions)});
-    this.setState({questionId: this.state.unansweredQuestions[0].id});
+    if (!this.state.unansweredQuestions[1]) {
+      this.requestLesson({name: this.state.currentLesson}, '/next');
+    }
   },
   handleIncorrectAnswer: function(data) {
 

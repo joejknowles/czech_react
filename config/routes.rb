@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'lesson' => 'lessons#index'
+    get 'lesson/next' => 'lessons#next'
   end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

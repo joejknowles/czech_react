@@ -7,4 +7,9 @@ module LearningTowerHelper
       return EnglishSentence.limit 100
     end
   end
+
+  def self.next_lesson lesson_name
+    lesson = Lesson.next_lesson lesson_name
+    Array(EnglishSentence.where(lesson: lesson))
+  end
 end
