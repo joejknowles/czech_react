@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   namespace :api do
     post 'check_answer' => 'answer_checker#check'
   end
+
+  namespace :api do
+    get 'lesson' => 'lessons#index'
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

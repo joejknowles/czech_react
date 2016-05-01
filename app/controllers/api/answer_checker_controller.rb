@@ -1,4 +1,4 @@
-class Api::AnswerCheckerController < Api::AnswerCheckerBase
+class Api::AnswerCheckerController < ApplicationController
   def check
     respond_to do |format|
       response = AnswerCheckerHelper.create_response params

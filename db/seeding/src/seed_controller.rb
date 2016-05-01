@@ -1,6 +1,7 @@
 require_relative './vocab_provider'
 require_relative './csv_provider'
 require_relative './csv_parser'
+require './app/src/lesson_input/vocab_creator'
 
 class SeedController
   def self.seed file_name
