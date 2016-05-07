@@ -6,7 +6,7 @@ module Seeds
     end
 
     def self.file_names
-      Dir['db/seeding/csvs/*.csv'].map {|name| name[16..-5]}
+      Dir['db/seeding/csvs/*.csv'].sort.map {|name| name[16..-5]}
     end
 
     def self.seed file_names

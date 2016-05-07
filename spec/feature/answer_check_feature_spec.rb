@@ -1,13 +1,15 @@
 require 'rails_helper'
 require 'test_helpers/learning_tower_test_helper'
 require 'test_helpers/answer_helper'
+require 'test_helpers/question_helper'
 include AnswerHelper
 include LearningTowerTestHelper
+include QuestionHelper
 
 feature 'Answer checking' do
   context 'accepts varied casing' do
     before do
-      LearningTowerTestHelper.create_months_lesson
+      create_months_lesson
       visit '/learning_tower'
     end
 
@@ -38,7 +40,7 @@ feature 'Answer checking' do
 
   context 'accepts innacurate diacritics' do
     before do
-      LearningTowerTestHelper.create_months_lesson
+      create_months_lesson
       visit '/learning_tower'
     end
 
@@ -56,7 +58,7 @@ feature 'Answer checking' do
 
   context 'accepts different punctuation' do
     before do
-      LearningTowerTestHelper.create_months_lesson
+      create_months_lesson
       visit '/learning_tower'
     end
 

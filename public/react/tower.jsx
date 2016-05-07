@@ -69,6 +69,19 @@ var Main = React.createClass({
   handleIncorrectAnswer: function(data) {
 
   },
+  shuffleQuestions: function() {
+    this.setState({unansweredQuestions: this.shuffleArray(this.state.unansweredQuestions)});
+  },
+  shuffleArray:  function(a) {
+      var j, x, i;
+      for (i = a.length; i; i -= 1) {
+          j = Math.floor(Math.random() * i);
+          x = a[i - 1];
+          a[i - 1] = a[j];
+          a[j] = x;
+      }
+      return a;
+  },
   render: function() {
     if (this.state.unansweredQuestions[0]) {
       return (
@@ -78,6 +91,7 @@ var Main = React.createClass({
           < UnansweredQuestionsList data={ this.state.unansweredQuestions } />
           <div className='col-md-8'>
             <AnswerForm submitAnswer={ this.handleAnswerSubmit } />
+            <ArrangementButtons shuffleQuestions={ this.shuffleQuestions } />
           </div>
         </div>
       )
@@ -175,6 +189,16 @@ var AnswerForm = React.createClass({
         <button type="submit">Check</button>
       </form>
     );
+  }
+});
+
+var ArrangementButtons = React.createClass({
+  handleShuffleClick: function(e) {
+    e.preventDefault();
+    this.props.shuffleQuestions();
+  },
+  render: function() {
+    return <button type="submit" onClick={ this.handleShuffleClick } >Shuffle</button>
   }
 });
 

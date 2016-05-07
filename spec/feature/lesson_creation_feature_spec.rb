@@ -1,7 +1,9 @@
+require 'test_helpers/question_helper'
+include QuestionHelper
 feature 'separate lessons in learning tower' do
   context 'words have been added to months lesson and separately' do
     before do
-      LearningTowerTestHelper.create_months_lesson
+      create_months_lesson
       visit '/learning_tower/months'
     end
 

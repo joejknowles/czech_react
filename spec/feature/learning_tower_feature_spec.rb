@@ -1,9 +1,11 @@
 require 'rails_helper'
 require 'test_helpers/learning_tower_test_helper'
 require 'test_helpers/answer_helper'
+require 'test_helpers/question_helper'
 feature 'Learning Tower' do
 include AnswerHelper
 include LearningTowerTestHelper
+include QuestionHelper
 
   context 'no words have been added' do
     scenario "should tell you there aren't any words", js: true do
@@ -48,12 +50,31 @@ include LearningTowerTestHelper
       pending 'haven\'t decided how to handle this yet'
     end
   end
+
+  context 'word display' do
+    before do
+      create_time_lessons
+      visit '/learning_tower/days'
+    end
+
+    scenario 'only keeps 10 answered questions', js: true do
+      create_verbs_lesson
+      answer_all_time
+      expect(page).to have_content
+      expect(page).not_to have_content 'Pondělí'
+      expect(page).not_to have_content 'Únor'
+      expect(page).not_to have_content 'Monday'
+      expect(page).not_to have_content 'February'
+    end
+
+    scenario 'shuffles', js: true do
+      click_button 'Shuffle'
+      expect(page).to have_content 'Monday'
+      expect(page).not_to have_content 'Monday Tuesday Wednesday Thursday'
+    end
+  end
 end
 
-def answer_incorrectly
-  fill_in 'answer', with: "I don't know, man!"
-  click_button 'Check'
-end
 
 def english_months
   %w(January February March April May June July August September October November December)

@@ -1,18 +1,6 @@
 require './db/seeding/src/seed_adaptors/time_sentences'
 require './db/seeding/src/seed_adaptors/verbs'
 module LearningTowerTestHelper
-  def create_months_lesson
-    Seeds::TimeSentences.add_months
-  end
-
-  def create_time_lessons
-    Seeds::TimeSentences.add_all
-  end
-
-  def create_verbs_lesson
-    Seeds::Verbs.add_all
-  end
-
   def expect_first_correct_answer_response
     expect_answered_question_to_move 'January'
     expect_correct_answer_to_move 'Leden'
