@@ -10,9 +10,10 @@ class Api::LessonsController < ApplicationController
   end
 
   def lesson_response sentences
+    lesson_name = sentences[0] ? sentences.first.lesson.name : ''
     respond_to do |format|
       format.json {
-        render json: {sentences: sentences, lessonName: sentences.first.lesson.name}.to_json
+        render json: {sentences: sentences, lessonName: lesson_name}.to_json
         }
     end
   end

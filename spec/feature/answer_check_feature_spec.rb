@@ -53,4 +53,22 @@ feature 'Answer checking' do
       expect_second_correct_answer_response
     end
   end
+
+  context 'accepts different punctuation' do
+    before do
+      LearningTowerTestHelper.create_months_lesson
+      visit '/learning_tower'
+    end
+
+    scenario 'with extra full stop', js: true do
+      answer_with 'ľéďéñ.'
+      expect_first_correct_answer_response
+    end
+
+    scenario 'with missing full stop', js: true do
+      CzechTranslation.find_by(display: 'leden').update(display: 'Leden.')
+      answer_with 'Leden'
+      expect_first_correct_answer_response
+    end
+  end
 end

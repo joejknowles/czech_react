@@ -60,8 +60,8 @@ var Main = React.createClass({
     }
   },
   handleCorrectAnswer: function(data) {
-    this.setState({correctAnswers: [{ display: data.suggestion, id: this.currentQuestionId() }].concat(this.state.correctAnswers)});
-    this.setState({answeredQuestions: [this.state.unansweredQuestions.shift()].concat(this.state.answeredQuestions)});
+    this.setState({correctAnswers: this.state.correctAnswers.concat([{ display: data.suggestion, id: this.currentQuestionId() }])});
+    this.setState({answeredQuestions: this.state.answeredQuestions.concat([this.state.unansweredQuestions.shift()])});
     if (!this.state.unansweredQuestions[1]) {
       this.requestLesson({name: this.state.currentLesson}, '/next');
     }
@@ -89,7 +89,7 @@ var Main = React.createClass({
 
 var AnsweredQuestionsList = React.createClass({
   render: function() {
-    var answeredQuestionNodes = this.props.data.map(function(question){
+    var answeredQuestionNodes = this.props.data.slice(-10).reverse().map(function(question){
       return <question key={question.id} className='source-sentence finished' >{question.display}</question>;
     });
     return (
@@ -102,7 +102,7 @@ var AnsweredQuestionsList = React.createClass({
 
   var CorrectAnswersList = React.createClass({
   render: function() {
-    var answerNodes = this.props.data.map(function(correctAnswer){
+    var answerNodes = this.props.data.slice(-10).reverse().map(function(correctAnswer){
       return <correctAnswer key={correctAnswer.id} className='finished' >{correctAnswer.display}</correctAnswer>;
     });
     return (

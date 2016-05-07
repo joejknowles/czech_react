@@ -16,6 +16,6 @@ class StringComparer
   end
 
   def plain_chars string
-    string.unicode_normalize(:nfd).chars.select(&:ascii_only?).join.downcase.unicode_normalize(:nfc)
+    string.unicode_normalize(:nfd).chars.select(&:ascii_only?).join.downcase.unicode_normalize(:nfc).gsub(/[^0-9a-z ]/i, '')
   end
 end
