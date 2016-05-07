@@ -3,6 +3,6 @@ class Lesson < ActiveRecord::Base
 
   def self.next_lesson lesson_name
     current = find_by(name: lesson_name)
-    where('id > ?', current.id).first
+    where('id > ?', current.id).first || first
   end
 end
