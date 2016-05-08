@@ -7,6 +7,10 @@ module MessageCreator
   end
 
   def make_suggestion
-    @suggestion = Capitalizer.capitalize(@correct_options.first)
+    suggest = @correct_options.first
+    @suggestion = {
+      display: Capitalizer.capitalize(suggest.display),
+      id: suggest.id
+    }
   end
 end

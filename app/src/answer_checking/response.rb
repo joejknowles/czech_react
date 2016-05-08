@@ -3,7 +3,7 @@ require_relative 'message_creator'
 
 class Response
   include AnswerChecker, MessageCreator
-  attr_reader :correct, :user_message, :suggestion
+  attr_reader :correct, :suggestion, :english_sentence_id
   def initialize info
     extract_info info
     check_answer
@@ -14,8 +14,7 @@ class Response
 
   def extract_info info
     @answer = info[:answer].downcase
-    @sentence = info[:sentence_id]
+    @english_sentence_id = info[:sentence_id]
     @attempt = info[:attempt].to_i
-
   end
 end

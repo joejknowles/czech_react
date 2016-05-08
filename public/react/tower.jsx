@@ -60,8 +60,10 @@ var Main = React.createClass({
     }
   },
   handleCorrectAnswer: function(data) {
-    this.setState({correctAnswers: this.state.correctAnswers.concat([{ display: data.suggestion, id: this.currentQuestionId() }])});
-    this.setState({answeredQuestions: this.state.answeredQuestions.concat([this.state.unansweredQuestions.shift()])});
+    if (data.english_sentence_id == this.currentQuestionId()) {
+      this.setState({correctAnswers: this.state.correctAnswers.concat([{ display: data.suggestion.display, id: data.suggestion.id }])});
+      this.setState({answeredQuestions: this.state.answeredQuestions.concat([this.state.unansweredQuestions.shift()])});
+    }
     if (!this.state.unansweredQuestions[1]) {
       this.requestLesson({name: this.state.currentLesson}, '/next');
     }
@@ -176,9 +178,8 @@ var AnswerForm = React.createClass({
     var waiting = setInterval(function() {
       var placeHolder = waitingPlaceHolders.shift();
       waitingPlaceHolders = waitingPlaceHolders.concat([placeHolder]);
-      self.setState({placeHolder: placeHolder});
+      self.setState({placeHolder: placeHolder, answer: ''});
     }, 100);
-    this.setState(this.getInitialState());
     this.setState({isDisabled: true});
     checkAnswer.then(function() {
       clearInterval(waiting);
