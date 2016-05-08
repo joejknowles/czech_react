@@ -39,7 +39,7 @@ var Main = React.createClass({
   },
   handleAnswerSubmit: function(answer) {
     answer.sentence_id = this.currentQuestionId();
-    $.ajax({
+    return $.ajax({
       url: '/api/check_answer',
       dataType: 'json',
       type: 'POST',
@@ -161,7 +161,7 @@ var question = React.createClass({
 
 var AnswerForm = React.createClass({
   getInitialState: function() {
-    return { answer: ''};
+    return { answer: '', placeHolder: "You know this!"};
   },
   handleAnswerChange: function(e) {
     this.setState({answer: e.target.value});
@@ -170,8 +170,22 @@ var AnswerForm = React.createClass({
     e.preventDefault();
     var answer = this.state.answer.trim();
     if (!answer) return;
-    this.props.submitAnswer({answer: answer})
-    this.setState({answer: ''})
+    var checkAnswer = $.when(this.props.submitAnswer({answer: answer}))
+    var self = this;
+    var waitingPlaceHolders = ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
+    var waiting = setInterval(function() {
+      var placeHolder = waitingPlaceHolders.shift();
+      waitingPlaceHolders = waitingPlaceHolders.concat([placeHolder]);
+      self.setState({placeHolder: placeHolder});
+    }, 100);
+    this.setState(this.getInitialState());
+    this.setState({isDisabled: true});
+    checkAnswer.then(function() {
+      clearInterval(waiting);
+      self.setState(self.getInitialState());
+      self.setState({isDisabled: false});
+      $('#answer').focus();
+    });
   },
   render: function() {
     return (
@@ -181,7 +195,8 @@ var AnswerForm = React.createClass({
           type="text"
           name="answer"
           id="answer"
-          placeholder="You know this!"
+          disabled= { this.state.isDisabled }
+          placeholder= { this.state.placeHolder }
           value={this.state.answer}
           autoFocus='true'
           autoComplete='off'
@@ -196,6 +211,7 @@ var ArrangementButtons = React.createClass({
   handleShuffleClick: function(e) {
     e.preventDefault();
     this.props.shuffleQuestions();
+    $('#answer').focus();
   },
   render: function() {
     return <button type="submit" onClick={ this.handleShuffleClick } >Shuffle</button>
