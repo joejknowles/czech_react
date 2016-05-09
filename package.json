@@ -1,0 +1,22 @@
+{
+  "name": "lang_sql",
+  "version": "1.0.0",
+  "description": "== README",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-addons-update": "^15.0.2",
+    "react-dom": "^15.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://joejknowles@bitbucket.org/joejknowles/learncz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/joejknowles/learncz#readme"
+}

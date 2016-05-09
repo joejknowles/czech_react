@@ -1,11 +1,10 @@
 class Api::LessonsController < ApplicationController
   def index
-    sentences = LearningTowerHelper.new_lesson(params[:name])
-    lesson_response sentences
-  end
-
-  def next
-    sentences = LearningTowerHelper.next_lesson(params[:name])
+    if params[:requestingNextLesson]
+      sentences = LearningTowerHelper.next_lesson(params[:lessonName])
+    else
+      sentences = LearningTowerHelper.new_lesson(params[:lessonName])
+    end
     lesson_response sentences
   end
 
