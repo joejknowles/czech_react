@@ -36,17 +36,20 @@ var Main = React.createClass({
   },
   handleAnswerCheckResponse: function(data) {
     if (data.correct && this.responseIsForCurrentQuestion(data)) {
-      this.handleCorrectAnswer(data)
+      this.handleCorrectAnswer(data);
     } else {
       this.handleIncorrectAnswer(data);
     }
   },
   handleCorrectAnswer: function(data) {
     stateUpdater.add.bind(this)('correctAnswers', data.suggestion);
-    stateUpdater.add.bind(this)('answeredQuestions', this.state.unansweredQuestions.shift());
+    stateUpdater.add.bind(this)('answeredQuestions', this.questionJustAnswered());
     if (this.oneUnansweredQuestionLeft()) {
       this.requestLesson(true);
     }
+  },
+  questionJustAnswered: function() {
+    return this.state.unansweredQuestions.shift();
   },
   oneUnansweredQuestionLeft: function() {
     return !this.state.unansweredQuestions[1]

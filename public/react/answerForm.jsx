@@ -1,6 +1,7 @@
+var stateUpdater = require('./reactExtensions/stateUpdater')
 module.exports = React.createClass({
   getInitialState: function() {
-    return { answer: '', placeHolder: "You know this!"};
+    return { answer: '', placeHolder: "You know this!", waitingPlaceHolders: this.waitingPlaceHolders()};
   },
   handleAnswerChange: function(e) {
     this.setState({answer: e.target.value});
@@ -9,21 +10,27 @@ module.exports = React.createClass({
     e.preventDefault();
     var answer = this.state.answer.trim();
     if (!answer) return;
-    var checkAnswer = $.when(this.props.submitAnswer({answer: answer}))
-    var self = this;
-    var waitingPlaceHolders = ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
-    var waiting = setInterval(function() {
-      var placeHolder = waitingPlaceHolders.shift();
-      waitingPlaceHolders = waitingPlaceHolders.concat([placeHolder]);
-      self.setState({placeHolder: placeHolder, answer: ''});
-    }, 100);
+    var checkAnswer = $.when(this.props.submitAnswer({answer: answer}));
+    this.setState({answer: ''});
+    var waiting = this.waiting();
     this.setState({isDisabled: true});
+    var self = this;
     checkAnswer.then(function() {
       clearInterval(waiting);
       self.setState(self.getInitialState());
       self.setState({isDisabled: false});
       $('#answer').focus();
     });
+  },
+  waiting: function() {
+    return setInterval(this.iterateWaitAnimation, 100);
+  },
+  iterateWaitAnimation: function() {
+    stateUpdater.rotate.bind(this)('waitingPlaceHolders');
+    this.setState({placeHolder: this.state.waitingPlaceHolders[0]})
+  },
+  waitingPlaceHolders: function() {
+    return ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
   },
   render: function() {
     return (

@@ -21,11 +21,12 @@ module.exports.checkAnswer = function (answer) {
 },{}],2:[function(require,module,exports){
 'use strict';
 
+var stateUpdater = require('./reactExtensions/stateUpdater');
 module.exports = React.createClass({
   displayName: 'exports',
 
   getInitialState: function getInitialState() {
-    return { answer: '', placeHolder: "You know this!" };
+    return { answer: '', placeHolder: "You know this!", waitingPlaceHolders: this.waitingPlaceHolders() };
   },
   handleAnswerChange: function handleAnswerChange(e) {
     this.setState({ answer: e.target.value });
@@ -35,20 +36,26 @@ module.exports = React.createClass({
     var answer = this.state.answer.trim();
     if (!answer) return;
     var checkAnswer = $.when(this.props.submitAnswer({ answer: answer }));
-    var self = this;
-    var waitingPlaceHolders = ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
-    var waiting = setInterval(function () {
-      var placeHolder = waitingPlaceHolders.shift();
-      waitingPlaceHolders = waitingPlaceHolders.concat([placeHolder]);
-      self.setState({ placeHolder: placeHolder, answer: '' });
-    }, 100);
+    this.setState({ answer: '' });
+    var waiting = this.waiting();
     this.setState({ isDisabled: true });
+    var self = this;
     checkAnswer.then(function () {
       clearInterval(waiting);
       self.setState(self.getInitialState());
       self.setState({ isDisabled: false });
       $('#answer').focus();
     });
+  },
+  waiting: function waiting() {
+    return setInterval(this.iterateWaitAnimation, 100);
+  },
+  iterateWaitAnimation: function iterateWaitAnimation() {
+    stateUpdater.rotate.bind(this)('waitingPlaceHolders');
+    this.setState({ placeHolder: this.state.waitingPlaceHolders[0] });
+  },
+  waitingPlaceHolders: function waitingPlaceHolders() {
+    return ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
   },
   render: function render() {
     return React.createElement(
@@ -78,7 +85,7 @@ module.exports = React.createClass({
   }
 });
 
-},{}],3:[function(require,module,exports){
+},{"./reactExtensions/stateUpdater":5}],3:[function(require,module,exports){
 'use strict';
 
 module.exports.Question = React.createClass({
@@ -108,15 +115,30 @@ module.exports.CorrectAnswer = React.createClass({
 },{}],4:[function(require,module,exports){
 "use strict";
 
-module.exports.shuffleArray = function (a) {
-    var j, x, i;
-    for (i = a.length; i; i -= 1) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-    }
-    return a;
+module.exports.safeShuffle = function (a) {
+  a = a.slice();
+  return shuffle(a);
+};
+
+module.exports.dangerousShuffle = function (a) {
+  return shuffle(a);
+};
+
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length; i; i -= 1) {
+    j = Math.floor(Math.random() * i);
+    x = a[i - 1];
+    a[i - 1] = a[j];
+    a[j] = x;
+  }
+  return a;
+}
+
+module.exports.safeRotate = function (a) {
+  a = a.slice();
+  var firstElement = a.shift();
+  return a.concat([firstElement]);
 };
 
 },{}],5:[function(require,module,exports){
@@ -135,9 +157,15 @@ module.exports.concat = function (propertyName, element) {
 };
 
 module.exports.shuffle = function (propertyName) {
-  var shuffle = require('../extensions/arrayExtensions.js').shuffleArray;
+  var shuffle = require('../extensions/arrayExtensions.js').safeShuffle;
   var shuffledArray = shuffle(this.state[propertyName]);
   this.setState(newObjectWithProperty(propertyName, shuffledArray));
+};
+
+module.exports.rotate = function (propertyName) {
+  var rotate = require('../extensions/arrayExtensions.js').safeRotate;
+  var rotatedArray = rotate(this.state[propertyName]);
+  this.setState(newObjectWithProperty(propertyName, rotatedArray));
 };
 
 function newObjectWithProperty(propertyName, value) {
@@ -216,10 +244,13 @@ var Main = React.createClass({
   },
   handleCorrectAnswer: function handleCorrectAnswer(data) {
     stateUpdater.add.bind(this)('correctAnswers', data.suggestion);
-    stateUpdater.add.bind(this)('answeredQuestions', this.state.unansweredQuestions.shift());
+    stateUpdater.add.bind(this)('answeredQuestions', this.questionJustAnswered());
     if (this.oneUnansweredQuestionLeft()) {
       this.requestLesson(true);
     }
+  },
+  questionJustAnswered: function questionJustAnswered() {
+    return this.state.unansweredQuestions.shift();
   },
   oneUnansweredQuestionLeft: function oneUnansweredQuestionLeft() {
     return !this.state.unansweredQuestions[1];

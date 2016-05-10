@@ -10,9 +10,15 @@ module.exports.concat = function(propertyName, element) {
 };
 
 module.exports.shuffle = function(propertyName) {
-  var shuffle = require('../extensions/arrayExtensions.js').shuffleArray;
-  var shuffledArray = shuffle(this.state[propertyName])
+  var shuffle = require('../extensions/arrayExtensions.js').safeShuffle;
+  var shuffledArray = shuffle(this.state[propertyName]);
   this.setState(newObjectWithProperty(propertyName, shuffledArray));
+}
+
+module.exports.rotate = function(propertyName) {
+  var rotate = require('../extensions/arrayExtensions.js').safeRotate;
+  var rotatedArray = rotate(this.state[propertyName]);
+  this.setState(newObjectWithProperty(propertyName, rotatedArray));
 }
 
 function newObjectWithProperty(propertyName, value) {
