@@ -22,41 +22,46 @@ module.exports.checkAnswer = function (answer) {
 'use strict';
 
 var stateUpdater = require('./reactExtensions/stateUpdater');
+var dangerousRotate = require('./extensions/arrayExtensions').dangerousRotate;
 module.exports = React.createClass({
   displayName: 'exports',
 
   getInitialState: function getInitialState() {
-    return { answer: '', placeHolder: "You know this!", waitingPlaceHolders: this.waitingPlaceHolders() };
+    return { answer: '', placeHolder: "You know this!", isDisabled: false };
   },
   handleAnswerChange: function handleAnswerChange(e) {
     this.setState({ answer: e.target.value });
   },
   handleSubmit: function handleSubmit(e) {
     e.preventDefault();
+    var checkingAnswer = this.checkAnswer();
+    this.deactivateInput();
+    var waiting = this.waiting();
+    checkingAnswer.then(function () {
+      this.resetInput(waiting);
+    }.bind(this));
+  },
+  checkAnswer: function checkAnswer() {
     var answer = this.state.answer.trim();
     if (!answer) return;
-    var checkAnswer = $.when(this.props.submitAnswer({ answer: answer }));
-    this.setState({ answer: '' });
-    var waiting = this.waiting();
-    this.setState({ isDisabled: true });
-    var self = this;
-    checkAnswer.then(function () {
-      clearInterval(waiting);
-      self.setState(self.getInitialState());
-      self.setState({ isDisabled: false });
-      $('#answer').focus();
-    });
+    return $.when(this.props.submitAnswer({ answer: answer }));
+  },
+  deactivateInput: function deactivateInput() {
+    this.setState({ answer: '', isDisabled: true });
+  },
+  resetInput: function resetInput(waiting) {
+    clearInterval(waiting);
+    this.setState(this.getInitialState());
+    $('#answer').focus();
   },
   waiting: function waiting() {
     return setInterval(this.iterateWaitAnimation, 100);
   },
   iterateWaitAnimation: function iterateWaitAnimation() {
-    stateUpdater.rotate.bind(this)('waitingPlaceHolders');
-    this.setState({ placeHolder: this.state.waitingPlaceHolders[0] });
+    dangerousRotate(this.waitingPlaceHolders);
+    this.setState({ placeHolder: this.waitingPlaceHolders[0] });
   },
-  waitingPlaceHolders: function waitingPlaceHolders() {
-    return ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
-  },
+  waitingPlaceHolders: ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'],
   render: function render() {
     return React.createElement(
       'form',
@@ -85,7 +90,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"./reactExtensions/stateUpdater":5}],3:[function(require,module,exports){
+},{"./extensions/arrayExtensions":4,"./reactExtensions/stateUpdater":5}],3:[function(require,module,exports){
 'use strict';
 
 module.exports.Question = React.createClass({
@@ -137,8 +142,12 @@ function shuffle(a) {
 
 module.exports.safeRotate = function (a) {
   a = a.slice();
+  return module.exports.rotate(a);
+};
+
+module.exports.dangerousRotate = function (a) {
   var firstElement = a.shift();
-  return a.concat([firstElement]);
+  return a.push(firstElement);
 };
 
 },{}],5:[function(require,module,exports){

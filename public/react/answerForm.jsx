@@ -1,37 +1,42 @@
-var stateUpdater = require('./reactExtensions/stateUpdater')
+var stateUpdater = require('./reactExtensions/stateUpdater');
+var dangerousRotate = require('./extensions/arrayExtensions').dangerousRotate;
 module.exports = React.createClass({
   getInitialState: function() {
-    return { answer: '', placeHolder: "You know this!", waitingPlaceHolders: this.waitingPlaceHolders()};
+    return { answer: '', placeHolder: "You know this!", isDisabled: false};
   },
   handleAnswerChange: function(e) {
     this.setState({answer: e.target.value});
   },
   handleSubmit: function(e) {
     e.preventDefault();
+    var checkingAnswer = this.checkAnswer();
+    this.deactivateInput();
+    var waiting = this.waiting();
+    checkingAnswer.then(function() {
+      this.resetInput(waiting);
+    }.bind(this));
+  },
+  checkAnswer: function() {
     var answer = this.state.answer.trim();
     if (!answer) return;
-    var checkAnswer = $.when(this.props.submitAnswer({answer: answer}));
-    this.setState({answer: ''});
-    var waiting = this.waiting();
-    this.setState({isDisabled: true});
-    var self = this;
-    checkAnswer.then(function() {
-      clearInterval(waiting);
-      self.setState(self.getInitialState());
-      self.setState({isDisabled: false});
-      $('#answer').focus();
-    });
+    return $.when(this.props.submitAnswer({answer: answer}));
+  },
+  deactivateInput: function() {
+    this.setState({answer: '', isDisabled: true});
+  },
+  resetInput: function(waiting) {
+    clearInterval(waiting);
+    this.setState(this.getInitialState());
+    $('#answer').focus();
   },
   waiting: function() {
     return setInterval(this.iterateWaitAnimation, 100);
   },
   iterateWaitAnimation: function() {
-    stateUpdater.rotate.bind(this)('waitingPlaceHolders');
-    this.setState({placeHolder: this.state.waitingPlaceHolders[0]})
+    dangerousRotate(this.waitingPlaceHolders)
+    this.setState({placeHolder: this.waitingPlaceHolders[0]})
   },
-  waitingPlaceHolders: function() {
-    return ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'];
-  },
+  waitingPlaceHolders: ['waiting ....-', 'waiting ...-.', 'waiting ..-..', 'waiting .-...', 'waiting -....', 'waiting .-...', 'waiting ..-..', 'waiting ...-.'],
   render: function() {
     return (
       <form id='answer-form' className='answerForm' onSubmit={this.handleSubmit}>

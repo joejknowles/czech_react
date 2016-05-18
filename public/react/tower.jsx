@@ -84,3 +84,9 @@ ReactDOM.render(
   <Main />,
   document.getElementById('container')
 );
+
+
+
+
+// Bundling js files together with:
+// watchify public/react/tower.jsx -o public/react/bundle.jsx -t [ babelify --presets [ es2015 react ] ]

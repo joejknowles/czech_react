@@ -20,6 +20,10 @@ function shuffle(a) {
 
 module.exports.safeRotate = function(a) {
   a = a.slice();
-  var firstElement = a.shift();
-  return a.concat([firstElement]);
+  return module.exports.rotate(a);
 };
+
+module.exports.dangerousRotate = function(a) {
+  var firstElement = a.shift();
+  return a.push(firstElement);
+}
