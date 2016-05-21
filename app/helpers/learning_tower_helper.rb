@@ -10,6 +10,6 @@ module LearningTowerHelper
 
   def self.next_lesson lesson_name
     lesson = Lesson.next_lesson lesson_name
-    Array(EnglishSentence.where(lesson: lesson))
+    Array(EnglishSentence.where(lesson: lesson).order(:id))
   end
 end
