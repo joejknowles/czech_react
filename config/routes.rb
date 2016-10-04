@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     get 'lesson' => 'lessons#index'
     get 'lesson/next' => 'lessons#next'
   end
+
+  get 'add' => 'add#index'
+  post 'add' => 'add#add'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

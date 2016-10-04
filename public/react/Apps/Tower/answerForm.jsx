@@ -1,5 +1,5 @@
-var stateUpdater = require('./reactExtensions/stateUpdater');
-var dangerousRotate = require('./extensions/arrayExtensions').dangerousRotate;
+var stateUpdater = require('../../reactExtensions/stateUpdater');
+var dangerousRotate = require('../../extensions/arrayExtensions').dangerousRotate;
 module.exports = React.createClass({
   getInitialState: function() {
     return { answer: '', placeHolder: "You know this!", isDisabled: false};

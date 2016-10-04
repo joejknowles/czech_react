@@ -2,8 +2,8 @@
 var { AnsweredQuestionsList, CorrectAnswersList, UnansweredQuestionsList } = require('./wordLists.jsx');
 var ShuffleButton = require('./shuffleButton.jsx');
 var AnswerForm = require('./answerForm.jsx');
-var callAjax = require('./ajax/callAjax');
-var stateUpdater = require('./reactExtensions/stateUpdater')
+var callAjax = require('../../ajax/callAjax');
+var stateUpdater = require('../../reactExtensions/stateUpdater')
 
 var Main = React.createClass({
   getInitialState: function() {
@@ -62,21 +62,17 @@ var Main = React.createClass({
     stateUpdater.shuffle.bind(this)('unansweredQuestions');
   },
   render: function() {
-    if (this.state.unansweredQuestions[0]) {
-      return (
-        <div>
-          < AnsweredQuestionsList data={ this.state.answeredQuestions } />
-          < CorrectAnswersList data={ this.state.correctAnswers } />
-          < UnansweredQuestionsList data={ this.state.unansweredQuestions } />
-          <div className='col-md-8'>
-            <AnswerForm submitAnswer={ this.handleAnswerSubmit } />
-            <ShuffleButton shuffleQuestions={ this.shuffleQuestions } />
-          </div>
+    return (
+      <div>
+        <AnsweredQuestionsList data={ this.state.answeredQuestions } />
+        <CorrectAnswersList data={ this.state.correctAnswers } />
+        <UnansweredQuestionsList data={ this.state.unansweredQuestions } />
+        <div className='col-md-8'>
+          <AnswerForm submitAnswer={ this.handleAnswerSubmit } />
+          <ShuffleButton shuffleQuestions={ this.shuffleQuestions } />
         </div>
-      )
-    } else {
-      return (<p>There are no words.</p>);
-    }
+      </div>
+    )
   }
 });
 
@@ -89,4 +85,4 @@ ReactDOM.render(
 
 
 // Bundling js files together with:
-// watchify public/react/tower.jsx -o public/react/bundle.jsx -t [ babelify --presets [ es2015 react ] ]
+// watchify public/react/Apps/tower/tower.jsx -o public/react/Apps/tower/bundle.jsx -t [ babelify --presets [ es2015 react ] ]

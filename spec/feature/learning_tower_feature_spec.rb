@@ -7,13 +7,6 @@ include AnswerHelper
 include LearningTowerTestHelper
 include QuestionHelper
 
-  context 'no words have been added' do
-    scenario "should tell you there aren't any words", js: true do
-      visit '/learning_tower'
-      expect(find('#container')).to have_content 'There are no words.'
-    end
-  end
-
   context 'words have been added' do
     before do
       create_months_lesson
@@ -70,6 +63,7 @@ include QuestionHelper
     scenario 'shuffles', js: true do
       click_button 'Shuffle'
       expect(page).to have_content 'Monday'
+      first('.brick')
       expect(page).not_to have_content 'Monday Tuesday Wednesday Thursday'
     end
   end
