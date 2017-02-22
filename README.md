@@ -1,24 +1,6 @@
 == README
 
-  * Design
-    * [Features](https://bitbucket.org/joejknowles/learncz/src/master/design/features.md?at=master&fileviewer=file-view-default)
-
   * Ruby version
     2.2.1
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
+  * Czech language learning app written in rails with a react front end. Check it out [here](http://learncz.herokuapp.com/)
